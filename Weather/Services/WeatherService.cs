@@ -14,6 +14,7 @@ namespace Weather.Services
 
         public async Task<string?> FetchWeatherDataAsync()
         {
+            string? res;
             try
             {
                 // NOTE: Use this code to simulate failures easily.
@@ -21,19 +22,19 @@ namespace Weather.Services
 
                 var response = await _httpClient.GetAsync("https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&hourly=temperature_2m,relativehumidity_2m,windspeed_10m");
                 response.EnsureSuccessStatusCode();
-                var res = await response.Content.ReadAsStringAsync();
+                res = await response.Content.ReadAsStringAsync();
 
                 if (res is not null)
                 {
-                    // Ignore awaining for data update process to speed up responding.
+                    // Ignore awaiting for data update process to speed up responding.
                     _repository.SaveWeatherDataAsync(res);
                 }
             }
             catch
             {
+                res = _repository.Cache;
             }
-
-            return _repository.Cache;
+            return res;
         }
 
         static void SimulateFailure(double prob)
