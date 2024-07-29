@@ -1,0 +1,15 @@
+version: '3.4'
+
+services:
+  db:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=38GR3r8073ho40HR84h
+  api:
+    ports:
+      - 8080:8080
+    build: .
+    restart: always
+    depends_on:
+      - db
