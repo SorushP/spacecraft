@@ -7,7 +7,7 @@ docker run --rm -e "ACCEPT_EULA=Y" -e "MSSQL_SA_PASSWORD=38GR3r8073ho40HR84h" -p
 
 # Wait about 10 seconds...
 
-dotnet run --project Weather --environment Development
+dotnet run --project Weather.csproj --environment Development
 ```
 
 Use this command to run the project in production mode (port `8080`, Swagger is not enabled):
