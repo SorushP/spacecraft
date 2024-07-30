@@ -26,8 +26,7 @@ namespace Weather.Services
 
                 if (res is not null)
                 {
-                    // Ignore awaiting for data update process to speed up responding.
-                    _repository.SaveWeatherDataAsync(res);
+                    Task.Run(() => _repository.SaveWeatherDataAsync(res));
                 }
             }
             catch
